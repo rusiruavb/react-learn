@@ -6,7 +6,7 @@
  * LEARNING OBJECTIVES:
  * - Understand React functional components
  * - Learn JSX syntax and expressions
- * - Master props and TypeScript interfaces
+ * - Master props
  * - Practice component composition
  *
  * CONCEPTS COVERED:
@@ -16,28 +16,6 @@
  * - TypeScript with React
  *
  * =============================================================================
- */
-
-// =============================================================================
-// PROPS INTERFACE
-// =============================================================================
-
-/**
- * TODO 1.1: Define the props interface for ProductCard
- *
- * The ProductCard component should receive:
- * - product: The product data to display (use the Product type from ../types)
- * - onViewDetails: Optional callback function when user clicks "View Details"
- * - onAddToCart: Optional callback function when user clicks "Add to Cart"
- *
- * HINT: Use the 'Product' type imported above
- *
- * Example:
- * interface ProductCardProps {
- *   product: Product;
- *   onViewDetails?: (productId: number) => void;
- *   onAddToCart?: (product: Product) => void;
- * }
  */
 
 // =============================================================================
@@ -145,13 +123,7 @@ export function ProductCard(props) {
 /*
 COMPLETE SOLUTION:
 
-interface ProductCardProps {
-  product: Product;
-  onViewDetails?: (productId: number) => void;
-  onAddToCart?: (product: Product) => void;
-}
-
-export function ProductCard({ product, onViewDetails, onAddToCart }: ProductCardProps) {
+export function ProductCard({ product, onViewDetails, onAddToCart }) {
   const imageUrl = product.images?.[0] || "https://via.placeholder.com/300";
   const formattedPrice = `$${product.price.toFixed(2)}`;
 
