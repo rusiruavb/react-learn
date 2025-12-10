@@ -18,15 +18,13 @@
  * =============================================================================
  */
 
-import { createContext, useContext, useState, useCallback, useEffect } from "react";
-
-import type { 
-  ProductContextType, 
-  Product, 
-  ProductFilters, 
-  CreateProductData, 
-  UpdateProductData 
-} from "../types";
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { productApi } from "../services/api";
 
 // =============================================================================
@@ -57,10 +55,6 @@ import { productApi } from "../services/api";
 // PROVIDER COMPONENT
 // =============================================================================
 
-interface ProductProviderProps {
-  children: ReactNode;
-}
-
 /**
  * TODO 10.2: Create the ProductProvider component
  *
@@ -71,14 +65,14 @@ interface ProductProviderProps {
  * - Deleting products
  */
 
-export function ProductProvider({ children }: ProductProviderProps) {
+export function ProductProvider({ children }) {
   // TODO 10.2a: Create state for products, loading, and error
   //
   // HINT:
   // const [products, setProducts] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState(null);
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
 
   // ⬆️ YOUR CODE HERE ⬆️
@@ -98,7 +92,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   //     setIsLoading(false);
   //   }
   // }, []);
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
 
   // ⬆️ YOUR CODE HERE ⬆️
@@ -114,7 +108,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   //     return null;
   //   }
   // }, []);
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
 
   // ⬆️ YOUR CODE HERE ⬆️
@@ -135,7 +129,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   //     return null;
   //   }
   // }, []);
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
 
   // ⬆️ YOUR CODE HERE ⬆️
@@ -146,7 +140,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   //
   // HINT:
   // const updateProduct = useCallback(async (
-  //   id: number, 
+  //   id: number,
   //   data: UpdateProductData
   // ) => {
   //   try {
@@ -159,7 +153,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   //     return null;
   //   }
   // }, []);
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
 
   // ⬆️ YOUR CODE HERE ⬆️
@@ -180,7 +174,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   //     return false;
   //   }
   // }, []);
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
 
   // ⬆️ YOUR CODE HERE ⬆️
@@ -191,7 +185,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   // useEffect(() => {
   //   fetchProducts();
   // }, [fetchProducts]);
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
 
   // ⬆️ YOUR CODE HERE ⬆️
@@ -209,7 +203,7 @@ export function ProductProvider({ children }: ProductProviderProps) {
   //   updateProduct,
   //   deleteProduct,
   // };
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
 
   // ⬆️ YOUR CODE HERE ⬆️
@@ -222,13 +216,9 @@ export function ProductProvider({ children }: ProductProviderProps) {
   //     {children}
   //   </ProductContext.Provider>
   // );
-  
+
   // ⬇️ YOUR CODE HERE ⬇️
-  return (
-    <>
-      {children}
-    </>
-  );
+  return <>{children}</>;
   // ⬆️ YOUR CODE HERE ⬆️
 }
 
@@ -242,17 +232,17 @@ export function ProductProvider({ children }: ProductProviderProps) {
  * HINT:
  * export function useProductContext(): ProductContextType {
  *   const context = useContext(ProductContext);
- *   
+ *
  *   if (!context) {
  *     throw new Error("useProductContext must be used within a ProductProvider");
  *   }
- *   
+ *
  *   return context;
  * }
  */
 
 // ⬇️ YOUR CODE HERE ⬇️
-export function useProductContext(): ProductContextType {
+export function useProductContext() {
   // TODO: Implement the hook
   // For now, return a placeholder
   return {
@@ -374,4 +364,3 @@ export function useProductContext(): ProductContextType {
 */
 
 export default ProductProvider;
-

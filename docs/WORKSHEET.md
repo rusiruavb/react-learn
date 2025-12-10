@@ -18,13 +18,26 @@ Welcome to this hands-on React workshop! In this course, you'll learn React by b
 
 ## Getting Started
 
+### Important Links
+
+**📚 Code Repository:** [https://github.com/rusiruavb/react-learn](https://github.com/rusiruavb/react-learn)
+**🎓 React Concepts Website:** [https://react-concepts-two-sandy.vercel.app/](https://react-concepts-two-sandy.vercel.app/)
+
+> The React Concepts website provides detailed explanations for each concept covered in this worksheet, along with practical live demos to help you understand the concepts better. Reference it whenever you need more information!
+
 ### Prerequisites
 
 - Node.js 18+ installed
 - Basic JavaScript knowledge
-- A code editor (VS Code recommended)
+- A code editor (VS Code or Cursor)
 
 ### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/rusiruavb/react-learn.git
+cd react-learn
+```
 
 ```bash
 # Install dependencies
@@ -39,10 +52,12 @@ The app will be available at `http://localhost:5173`
 ### API Information
 
 This workshop uses the **Platzi Fake Store API**:
+
 - Base URL: `https://api.escuelajs.co/api/v1`
 - Documentation: https://fakeapi.platzi.com/en/about/introduction/
 
 **Test Credentials for Authentication:**
+
 - Email: `john@mail.com`
 - Password: `changeme`
 
@@ -55,27 +70,25 @@ This workshop uses the **Platzi Fake Store API**:
 ```
 app/
 ├── components/           # Reusable UI components
-│   ├── product-card.tsx  # Exercise 1: Components, JSX, Props
-│   ├── product-list.tsx  # Exercise 2: State, mapping arrays
-│   ├── product-form.tsx  # Exercise 3: Forms, useState
-│   ├── search-bar.tsx    # Exercise 4: useMemo, useCallback
-│   └── navbar.tsx        # Exercise 12: Context consumption
+│   ├── product-card.jsx  # Exercise 1: Components, JSX, Props
+│   ├── product-list.jsx  # Exercise 2: State, mapping arrays
+│   ├── product-form.jsx  # Exercise 3: Forms, useState
+│   ├── search-bar.jsx    # Exercise 4: useMemo, useCallback
+│   └── navbar.jsx        # Exercise 12: Context consumption
 ├── context/
-│   ├── auth-context.tsx  # Exercise 9: Authentication Context
-│   └── product-context.tsx # Exercise 10: Product Context
+│   ├── auth-context.jsx  # Exercise 9: Authentication Context
+│   └── product-context.jsx # Exercise 10: Product Context
 ├── hooks/
-│   └── use-products.ts   # Exercise 5: Custom hooks, useEffect
+│   └── use-products.js   # Exercise 5: Custom hooks, useEffect
 ├── routes/
-│   ├── home.tsx          # Landing page
-│   ├── products.tsx      # Exercise 7: Product listing route
-│   ├── product.$id.tsx   # Exercise 8: Dynamic routes
-│   ├── product-new.tsx   # Create product page
-│   └── login.tsx         # Exercise 11: Login page
+│   ├── home.jsx          # Landing page
+│   ├── products.jsx      # Exercise 7: Product listing route
+│   ├── product.$id.jsx   # Exercise 8: Dynamic routes
+│   ├── product-new.jsx   # Create product page
+│   └── login.jsx         # Exercise 11: Login page
 ├── services/
-│   └── api.ts            # API service (provided complete)
-├── types/
-│   └── index.ts          # TypeScript types (provided complete)
-└── routes.ts             # Exercise 6: Route configuration
+│   └── api.js            # API service (provided complete)
+└── routes.js             # Exercise 6: Route configuration
 ```
 
 ### How to Use This Worksheet
@@ -88,9 +101,12 @@ app/
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Module 1: React Fundamentals
 
 ### Learning Objectives
+
 - Understand React components and JSX
 - Master props for passing data between components
 - Learn state management with useState
@@ -100,9 +116,11 @@ app/
 
 ### Exercise 1: ProductCard Component
 
-**File:** `app/components/product-card.tsx`
+**File:** `app/components/product-card.jsx`
 
-**Concepts:** Components, JSX, Props, TypeScript Interfaces
+**Concepts:** Components, JSX, Props
+
+**📖 Learn More:** Visit the [React Concepts Website - Components & Props](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
 
 #### What You'll Learn
 
@@ -114,25 +132,17 @@ app/
 
 #### Key Concepts
 
-```tsx
-// Defining props with TypeScript
-interface ProductCardProps {
-  product: Product;
-  onViewDetails?: (id: number) => void;
-}
-
+```jsx
 // Using props in a component
-function ProductCard({ product, onViewDetails }: ProductCardProps) {
+function ProductCard({ product, onViewDetails }) {
   return (
     <div>
       {/* JSX expressions use curly braces */}
       <h3>{product.title}</h3>
       <p>${product.price.toFixed(2)}</p>
-      
+
       {/* Event handlers */}
-      <button onClick={() => onViewDetails?.(product.id)}>
-        View Details
-      </button>
+      <button onClick={() => onViewDetails?.(product.id)}>View Details</button>
     </div>
   );
 }
@@ -140,18 +150,19 @@ function ProductCard({ product, onViewDetails }: ProductCardProps) {
 
 #### Tasks
 
-1. Define the `ProductCardProps` interface with product and callback props
-2. Destructure props in the component function
-3. Display product image, title, category, and price
-4. Add View Details and Add to Cart buttons with click handlers
+1. Destructure props in the component function
+2. Display product image, title, category, and price
+3. Add View Details and Add to Cart buttons with click handlers
 
 ---
 
 ### Exercise 2: ProductList Component
 
-**File:** `app/components/product-list.tsx`
+**File:** `app/components/product-list.jsx`
 
 **Concepts:** useState, Rendering Lists, The Key Prop, Conditional Rendering
+
+**📖 Learn More:** Visit the [React Concepts Website - State & Lists](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
 
 #### What You'll Learn
 
@@ -163,26 +174,30 @@ function ProductCard({ product, onViewDetails }: ProductCardProps) {
 
 #### Key Concepts
 
-```tsx
+```jsx
 // Using useState
-const [selectedId, setSelectedId] = useState<number | null>(null);
+const [selectedId, setSelectedId] = useState(null);
 
 // Rendering lists with map
-{products.map((product) => (
-  <ProductCard 
-    key={product.id}  // IMPORTANT: Always provide a unique key!
-    product={product}
-  />
-))}
+{
+  products.map((product) => (
+    <ProductCard
+      key={product.id} // IMPORTANT: Always provide a unique key!
+      product={product}
+    />
+  ));
+}
 
 // Conditional rendering
-{isLoading ? (
-  <LoadingSpinner />
-) : error ? (
-  <ErrorMessage error={error} />
-) : (
-  <ProductGrid products={products} />
-)}
+{
+  isLoading ? (
+    <LoadingSpinner />
+  ) : error ? (
+    <ErrorMessage error={error} />
+  ) : (
+    <ProductGrid products={products} />
+  );
+}
 ```
 
 #### Tasks
@@ -197,9 +212,11 @@ const [selectedId, setSelectedId] = useState<number | null>(null);
 
 ### Exercise 3: ProductForm Component
 
-**File:** `app/components/product-form.tsx`
+**File:** `app/components/product-form.jsx`
 
 **Concepts:** Controlled Components, Form Events, Form Validation
+
+**📖 Learn More:** Visit the [React Concepts Website - Forms](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
 
 #### What You'll Learn
 
@@ -209,20 +226,20 @@ const [selectedId, setSelectedId] = useState<number | null>(null);
 
 #### Key Concepts
 
-```tsx
+```jsx
 // Controlled input
 const [title, setTitle] = useState("");
 
 <input
   type="text"
-  value={title}  // Value comes from state
-  onChange={(e) => setTitle(e.target.value)}  // Updates state
-/>
+  value={title} // Value comes from state
+  onChange={(e) => setTitle(e.target.value)} // Updates state
+/>;
 
 // Form submission
-const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();  // IMPORTANT: Prevent page reload!
-  
+const handleSubmit = (e) => {
+  e.preventDefault(); // IMPORTANT: Prevent page reload!
+
   // Validate and submit
   if (validateForm()) {
     onSubmit({ title, price, description });
@@ -232,7 +249,7 @@ const handleSubmit = (e: React.FormEvent) => {
 <form onSubmit={handleSubmit}>
   {/* form fields */}
   <button type="submit">Save</button>
-</form>
+</form>;
 ```
 
 #### Tasks
@@ -246,9 +263,12 @@ const handleSubmit = (e: React.FormEvent) => {
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Module 2: React Hooks Deep Dive
 
 ### Learning Objectives
+
 - Master the useEffect hook for side effects
 - Understand useMemo for memoizing values
 - Learn useCallback for memoizing functions
@@ -258,9 +278,11 @@ const handleSubmit = (e: React.FormEvent) => {
 
 ### Exercise 4: SearchBar with useMemo and useCallback
 
-**File:** `app/components/search-bar.tsx`
+**File:** `app/components/search-bar.jsx`
 
 **Concepts:** useMemo, useCallback, Performance Optimization
+
+**📖 Learn More:** Visit the [React Concepts Website - Performance Optimization](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
 
 #### What You'll Learn
 
@@ -275,18 +297,18 @@ const handleSubmit = (e: React.FormEvent) => {
 
 #### Key Concepts
 
-```tsx
+```jsx
 // useMemo - memoize computed values
 const filteredProducts = useMemo(() => {
-  return products.filter((p) => 
+  return products.filter((p) =>
     p.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-}, [products, searchTerm]);  // Only recompute when these change
+}, [products, searchTerm]); // Only recompute when these change
 
 // useCallback - memoize functions
-const handleSearch = useCallback((value: string) => {
+const handleSearch = useCallback((value) => {
   setSearchTerm(value);
-}, []);  // Empty deps = function never changes
+}, []); // Empty deps = function never changes
 ```
 
 #### Tasks
@@ -300,9 +322,11 @@ const handleSearch = useCallback((value: string) => {
 
 ### Exercise 5: useProducts Custom Hook
 
-**File:** `app/hooks/use-products.ts`
+**File:** `app/hooks/use-products.js`
 
 **Concepts:** useEffect, Custom Hooks, Data Fetching
+
+**📖 Learn More:** Visit the [React Concepts Website - Hooks & Effects](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
 
 #### What You'll Learn
 
@@ -312,34 +336,40 @@ const handleSearch = useCallback((value: string) => {
 
 #### useEffect Dependency Array
 
-```tsx
+```jsx
 // Runs after EVERY render
-useEffect(() => { /* ... */ });
+useEffect(() => {
+  /* ... */
+});
 
 // Runs ONCE after initial render
-useEffect(() => { /* ... */ }, []);
+useEffect(() => {
+  /* ... */
+}, []);
 
 // Runs when 'id' changes
-useEffect(() => { /* ... */ }, [id]);
+useEffect(() => {
+  /* ... */
+}, [id]);
 
 // Cleanup function
 useEffect(() => {
   const subscription = api.subscribe();
-  
+
   return () => {
-    subscription.unsubscribe();  // Cleanup!
+    subscription.unsubscribe(); // Cleanup!
   };
 }, []);
 ```
 
 #### Key Concepts
 
-```tsx
+```jsx
 // Custom hook pattern
 function useProducts() {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState(null);
 
   const fetchProducts = useCallback(async () => {
     try {
@@ -370,9 +400,12 @@ function useProducts() {
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Module 3: React Router
 
 ### Learning Objectives
+
 - Configure routes in a React application
 - Implement navigation with Link and useNavigate
 - Handle dynamic routes with URL parameters
@@ -382,20 +415,22 @@ function useProducts() {
 
 ### Exercise 6: Route Configuration
 
-**File:** `app/routes.ts`
+**File:** `app/routes.js`
 
 **Concepts:** Route Configuration, Index Routes, Dynamic Routes
 
+**📖 Learn More:** Visit the [React Concepts Website - Routing](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
+
 #### Key Concepts
 
-```tsx
+```jsx
 // Route configuration in React Router
 export default [
-  index("routes/home.tsx"),           // "/" - index route
-  route("products", "routes/products.tsx"),  // "/products"
-  route("product/:id", "routes/product.$id.tsx"), // "/product/123"
-  route("login", "routes/login.tsx"),  // "/login"
-] satisfies RouteConfig;
+  index("routes/home.jsx"), // "/" - index route
+  route("products", "routes/products.jsx"), // "/products"
+  route("product/:id", "routes/product.$id.jsx"), // "/product/123"
+  route("login", "routes/login.jsx"), // "/login"
+];
 ```
 
 #### Tasks
@@ -409,13 +444,15 @@ export default [
 
 ### Exercise 7: Products Page
 
-**File:** `app/routes/products.tsx`
+**File:** `app/routes/products.jsx`
 
 **Concepts:** Route Components, Navigation, Component Composition
 
+**📖 Learn More:** Visit the [React Concepts Website - Navigation](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
+
 #### Key Concepts
 
-```tsx
+```jsx
 // Declarative navigation with Link
 <Link to="/products">Products</Link>
 <Link to={`/product/${id}`}>View Details</Link>
@@ -445,13 +482,15 @@ navigate(-1);
 
 ### Exercise 8: Product Detail Page
 
-**File:** `app/routes/product.$id.tsx`
+**File:** `app/routes/product.$id.jsx`
 
 **Concepts:** Dynamic Routes, useParams
 
+**📖 Learn More:** Visit the [React Concepts Website - Dynamic Routing](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
+
 #### Key Concepts
 
-```tsx
+```jsx
 // Accessing URL parameters
 const { id } = useParams();
 
@@ -463,7 +502,7 @@ useEffect(() => {
   if (id) {
     fetchProduct(Number(id));
   }
-}, [id]);  // Re-fetch when id changes
+}, [id]); // Re-fetch when id changes
 ```
 
 #### Tasks
@@ -476,9 +515,12 @@ useEffect(() => {
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Module 4: State Management with Context
 
 ### Learning Objectives
+
 - Understand the Context API
 - Create and provide context
 - Consume context with useContext
@@ -488,13 +530,16 @@ useEffect(() => {
 
 ### Exercise 9: AuthContext
 
-**File:** `app/context/auth-context.tsx`
+**File:** `app/context/auth-context.jsx`
 
 **Concepts:** createContext, Context Provider, useContext
+
+**📖 Learn More:** Visit the [React Concepts Website - Context API](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
 
 #### What is Context?
 
 Context provides a way to pass data through the component tree without passing props manually at every level. It's ideal for:
+
 - User authentication state
 - Theme preferences
 - Language settings
@@ -502,21 +547,21 @@ Context provides a way to pass data through the component tree without passing p
 
 #### Key Concepts
 
-```tsx
+```jsx
 // 1. Create the context
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext(null);
 
 // 2. Create the provider
-function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
-  
+function AuthProvider({ children }) {
+  const [user, setUser] = useState(null);
+
   const login = async (credentials) => {
     const user = await authApi.login(credentials);
     setUser(user);
   };
-  
+
   const logout = () => setUser(null);
-  
+
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
       {children}
@@ -547,17 +592,19 @@ function useAuth() {
 
 ### Exercise 10: ProductContext
 
-**File:** `app/context/product-context.tsx`
+**File:** `app/context/product-context.jsx`
 
 **Concepts:** CRUD Operations in Context, State Updates
 
+**📖 Learn More:** Visit the [React Concepts Website - Context State Management](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
+
 #### When to Use Context vs Local State
 
-| Use Context | Use Local State |
-|-------------|-----------------|
+| Use Context                    | Use Local State               |
+| ------------------------------ | ----------------------------- |
 | Data needed by many components | Data used by single component |
-| Data that represents app state | UI state (open/closed, etc.) |
-| Data that changes infrequently | Frequently changing data |
+| Data that represents app state | UI state (open/closed, etc.)  |
+| Data that changes infrequently | Frequently changing data      |
 
 #### Tasks
 
@@ -571,9 +618,12 @@ function useAuth() {
 
 ---
 
+<div style="page-break-after: always;"></div>
+
 ## Module 5: Data Fetching & Integration
 
 ### Learning Objectives
+
 - Implement complete authentication flow
 - Build forms that interact with APIs
 - Handle async operations with loading/error states
@@ -583,9 +633,11 @@ function useAuth() {
 
 ### Exercise 11: Login Page
 
-**File:** `app/routes/login.tsx`
+**File:** `app/routes/login.jsx`
 
 **Concepts:** Form Handling, Context Consumption, Navigation After Action
+
+**📖 Learn More:** Visit the [React Concepts Website - Authentication](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
 
 #### Tasks
 
@@ -599,9 +651,11 @@ function useAuth() {
 
 ### Exercise 12: Navbar Component
 
-**File:** `app/components/navbar.tsx`
+**File:** `app/components/navbar.jsx`
 
 **Concepts:** Context Consumer, Conditional Rendering
+
+**📖 Learn More:** Visit the [React Concepts Website - Context Consumption](https://react-concepts-two-sandy.vercel.app/) for detailed explanations and live demos.
 
 #### Tasks
 
@@ -617,18 +671,23 @@ function useAuth() {
 Once you've completed all exercises, try these challenges:
 
 ### Challenge 1: Edit Product
+
 Create a page to edit existing products. Reuse the ProductForm component with initial values.
 
 ### Challenge 2: Product Categories
+
 Add a categories page that lists all categories. Clicking a category shows products in that category.
 
 ### Challenge 3: Shopping Cart
+
 Implement a shopping cart using Context. Allow adding/removing products and displaying cart total.
 
 ### Challenge 4: Pagination
+
 Add pagination to the products list. Use the API's offset and limit parameters.
 
 ### Challenge 5: Protected Routes
+
 Create a wrapper that redirects to login if user isn't authenticated.
 
 ---
@@ -636,18 +695,17 @@ Create a wrapper that redirects to login if user isn't authenticated.
 ## Resources
 
 ### React Documentation
+
 - [React Docs](https://react.dev/)
 - [React Hooks](https://react.dev/reference/react/hooks)
 - [React Router](https://reactrouter.com/)
 
 ### API Documentation
+
 - [Platzi Fake Store API](https://fakeapi.platzi.com/en/about/introduction/)
 
-### TypeScript
-- [TypeScript Handbook](https://www.typescriptlang.org/docs/)
-- [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)
-
 ### Tailwind CSS
+
 - [Tailwind Documentation](https://tailwindcss.com/docs)
 
 ---
@@ -655,40 +713,49 @@ Create a wrapper that redirects to login if user isn't authenticated.
 ## Quick Reference
 
 ### useState
-```tsx
-const [value, setValue] = useState<Type>(initialValue);
+
+```jsx
+const [value, setValue] = useState(initialValue);
 ```
 
 ### useEffect
-```tsx
+
+```jsx
 useEffect(() => {
   // Effect code
-  return () => { /* Cleanup */ };
+  return () => {
+    /* Cleanup */
+  };
 }, [dependencies]);
 ```
 
 ### useMemo
-```tsx
+
+```jsx
 const memoizedValue = useMemo(() => computeValue(a, b), [a, b]);
 ```
 
 ### useCallback
-```tsx
+
+```jsx
 const memoizedFn = useCallback((arg) => doSomething(arg), [dep]);
 ```
 
 ### useContext
-```tsx
+
+```jsx
 const value = useContext(MyContext);
 ```
 
 ### useParams
-```tsx
-const { id } = useParams<{ id: string }>();
+
+```jsx
+const { id } = useParams();
 ```
 
 ### useNavigate
-```tsx
+
+```jsx
 const navigate = useNavigate();
 navigate("/path");
 navigate(-1); // Go back
@@ -699,4 +766,3 @@ navigate(-1); // Go back
 **Happy Learning!** 🚀
 
 Remember: The best way to learn React is by building. Don't be afraid to experiment and make mistakes. Each error is a learning opportunity!
-
